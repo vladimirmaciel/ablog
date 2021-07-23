@@ -24,7 +24,7 @@
 
                 
         </small><br/>
-        {{ post.body }}</li>
+        {{ post.body|slice:":200" }}</li>
     {% endfor %}
 </ul>
 
