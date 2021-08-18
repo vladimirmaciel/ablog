@@ -5,9 +5,10 @@ from django.urls import reverse
 from datetime import datetime, date
 from ckeditor .fields import RichTextField
 
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    
+
     def __str__(self):
         return self.name
 
@@ -15,9 +16,20 @@ class Category(models.Model):
         # return reverse('article-detail', args=(str(self.id)))
         return reverse('home')
 
+
+class Profile(models.Model):
+
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    bio = models.TextField()
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    header_image = models.ImageField(null=True, blank=True, upload_to="images/")
+    header_image = models.ImageField(
+        null=True, blank=True, upload_to="images/")
     title_tag = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
@@ -26,10 +38,9 @@ class Post(models.Model):
     category = models.CharField(max_length=255, default='coding')
     snippet = models.CharField(max_length=255)
     likes = models.ManyToManyField(User, related_name='blog_post')
-    
+
     def total_likes(self):
         return self.likes.count()
-    
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
