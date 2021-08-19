@@ -136,7 +136,3 @@ dmypy.json
 staticfiles/
 mediafiles/
 variaveis_ambinete_aws.md
-
-# Python Tools for Visual Studio (PTVS)
-__pycache__/
-*.pyc
